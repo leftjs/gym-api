@@ -1,0 +1,29 @@
+config.app_secret: "donler_gym_app_secret"
+
+
+# in-memory
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#
+#    show-sql: true
+#
+#  datasource:
+#    url: jdbc:hsqldb:mem:gym
+#
+# in-mysql
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/gym_dev?autoReconnect=true&useSSL=false
+    username: root
+    password: root
+
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
