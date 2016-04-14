@@ -10,6 +10,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "config")
 public class Config {
   private String appSecret;
+  private String tokenExpiredTime;
+
+  public String getTokenExpiredTime() {
+    return tokenExpiredTime;
+  }
+
+  public void setTokenExpiredTime(String tokenExpiredTime) {
+    this.tokenExpiredTime = tokenExpiredTime;
+  }
 
   public String getAppSecret() {
     return appSecret;
@@ -18,4 +27,6 @@ public class Config {
   public void setAppSecret(String appSecret) {
     this.appSecret = appSecret;
   }
+
+
 }

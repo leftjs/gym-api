@@ -1,5 +1,8 @@
 config.app_secret: "donler_gym_app_secret"
 
+# token过期时间为30天
+config.token_expired_time: "2592000000"
+
 
 # in-memory
 #spring:
