@@ -70,7 +70,7 @@ public class ErrorController {
 
     log.info("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
 //    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
-    return new RestErrorInfo("数据库操作异常", "唯一键出错");
+    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
   }
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)

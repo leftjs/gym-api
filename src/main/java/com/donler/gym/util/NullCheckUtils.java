@@ -7,6 +7,12 @@ import java.util.Map;
  * Created by jason on 4/14/16.
  */
 public class NullCheckUtils {
+
+  /**
+   * 空对象判断
+   * @param obj
+   * @return
+   */
   public static boolean isNullOrEmpty(Object obj){
     if (obj == null)
       return true;

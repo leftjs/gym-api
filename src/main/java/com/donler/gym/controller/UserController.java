@@ -31,6 +31,8 @@ public class UserController {
   @ResponseBody
   public ResponseEntity<User> register(@Valid @RequestBody User input) {
     User user = userService.getUserRepo().save(input);
+    // 忽略密码
+    user.setPassword(null);
     return ResponseEntity.ok(user);
   }
 
@@ -49,6 +51,7 @@ public class UserController {
     }
 
     Token token = userService.generateTokenByUserID(user.getId());
+
 
     return ResponseEntity.ok(token);
   }

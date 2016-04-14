@@ -3,8 +3,11 @@ package com.donler.gym.util;
 import java.util.Date;
 
 /**
+ * 简易日期处理工具
+ *
  * Created by jason on 4/14/16.
  */
+
 public class DateUtils {
 
 

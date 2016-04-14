@@ -117,6 +117,11 @@ public class UserService {
   }
 
 
+  /**
+   * 根据用户的id 生成token 并且更新user 表
+   * @param userID
+   * @return
+   */
   public Token generateTokenByUserID(Long userID) {
 
     User user = userRepo.findUserById(userID);
@@ -132,9 +137,15 @@ public class UserService {
     token.setToken(encodeToken(String.valueOf(user.getId())));
     token.setUserId(user.getId());
     token.setExpiredTime(expiredTime);
-    tokenRepo.save(token);
+    Token newToken = tokenRepo.save(token);
 
-    return token;
+    /**
+     * 更新user model 中的引用
+     */
+    user.setTokenId(token.getId());
+    userRepo.save(user);
+
+    return newToken;
   }
 
   private String encodeToken(String str) {

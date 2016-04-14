@@ -1,7 +1,9 @@
 package com.donler.gym.model;
 
 import com.donler.gym.util.MD5Utils;
+import com.donler.gym.util.NullCheckUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -15,6 +17,7 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -100,7 +103,11 @@ public class User {
    */
   public void setPassword(String password) {
 
-    this.password = MD5Utils.md5Encode(password);
+    if (NullCheckUtils.isNullOrEmpty(password)) {
+      this.password = null;
+    } else {
+      this.password = MD5Utils.md5Encode(password);
+    }
   }
 
   public String getName() {
@@ -127,6 +134,14 @@ public class User {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public Long getTokenId() {
+    return tokenId;
+  }
+
+  public void setTokenId(Long tokenId) {
+    this.tokenId = tokenId;
   }
 
   @Override
