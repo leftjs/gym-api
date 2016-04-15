@@ -1,5 +1,6 @@
 package com.donler.gym.model;
 
+
 import com.donler.gym.util.MD5Utils;
 import com.donler.gym.util.NullCheckUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

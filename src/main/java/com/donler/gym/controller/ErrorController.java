@@ -6,6 +6,7 @@ import com.donler.gym.expection.ResourceNotFoundException;
 import com.donler.gym.model.RestErrorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.ObjectError;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by jason on 4/13/16.
@@ -23,7 +23,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @ControllerAdvice
-@EnableWebMvc
+//@EnableWebMvc
+@Configuration
 public class ErrorController {
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -72,6 +73,8 @@ public class ErrorController {
 //    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
     return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
   }
+
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
