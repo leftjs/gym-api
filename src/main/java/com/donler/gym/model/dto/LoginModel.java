@@ -1,5 +1,7 @@
 package com.donler.gym.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -8,8 +10,10 @@ import javax.validation.constraints.NotNull;
  */
 public class LoginModel {
   @NotNull(message = "请传入用户名或者邮箱或者手机号")
+  @ApiModelProperty(required = true, example = "18205253786")
   private String loginName;
   @NotNull(message = "请传入登录登录密码")
+  @ApiModelProperty(required = true, example = "jason")
   private String loginPassword;
 
 

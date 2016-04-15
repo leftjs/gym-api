@@ -93,6 +93,7 @@
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-metadata:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-ui:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: io.springfox:springfox-bean-validators:2.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:swagger-ui:2.1.8-M1" level="project" />
   </component>
 </module>

@@ -5,6 +5,7 @@ import com.donler.gym.util.MD5Utils;
 import com.donler.gym.util.NullCheckUtils;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -20,41 +21,48 @@ import javax.validation.constraints.Pattern;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class User {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @ApiModelProperty(readOnly = true)
   private Long id;
+
 
   @NotNull(message = "用户名不能为空")
   @Length(min = 5, message = "用户名至少需要5个字符")
   @Column(unique = true)
+  @ApiModelProperty(required = true, example = "jason")
   private String username;
 
   @NotNull(message = "密码不能为空")
   @Length(min = 5, message = "密码至少需要5个字符")
 //  @Pattern(regexp="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,10}$",message="密码必须是5~10位数字和字母的组合")
+  @ApiModelProperty(required = true, example = "jason")
   private String password;
 
-//  @NotNull(message = "姓名不能为空")
-  @NotBlank(message="姓名不能为空或者空串")
-  @Length(min = 3, message = "姓名至少需要3个字符")
+  //  @NotNull(message = "姓名不能为空")
+  @NotBlank(message = "姓名不能为空或者空串")
+  @Length(min = 2, message = "姓名至少需要2个字符")
   @Column(unique = false)
+  @ApiModelProperty(example = "张三",required = true)
   private String name;
 
-//  @NotNull(message = "请输入邮箱")
+  @NotNull(message = "请输入邮箱")
   @Email(message = "请填入正确的邮箱")
   @Column(unique = true)
+  @ApiModelProperty(required = true,example = "lefttjs@gmail.com")
   private String email;
 
-  //  @NotNull(message = "请输入电话号码")
-//  @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$",message = "手机号码不正确")
-  @Pattern(regexp = "^(1)\\d{10}$",message = "手机号码不正确")
+  @NotNull(message = "请输入电话号码")
+  @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$",message = "手机号码不正确")
+//  @Pattern(regexp = "^(1)\\d{10}$", message = "手机号码不正确")
   @Column(unique = true)
+  @ApiModelProperty(required = true,example = "18205253786")
   private String phoneNumber;
 
 
+  @ApiModelProperty(readOnly = true)
   private Long tokenId;
-
-
 
 
   public User(String username, String password, String name, String email, String phoneNumber) {
@@ -100,6 +108,7 @@ public class User {
 
   /**
    * hook 方法
+   *
    * @param password
    */
   public void setPassword(String password) {

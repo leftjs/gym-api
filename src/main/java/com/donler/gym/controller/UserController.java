@@ -20,6 +20,7 @@ import javax.validation.Valid;
  */
 
 
+
 @RestController
 @RequestMapping("/user")
 @Api(value = "user", tags = {"用户"})
@@ -35,7 +36,9 @@ public class UserController {
   @ApiOperation(notes = "根据用户信息注册一个新的用户", value = "用户注册")
   @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
   @ResponseBody
-  public ResponseEntity<User> register(@Valid @RequestBody User input) {
+  public ResponseEntity<User> register(
+
+      @Valid @RequestBody User input) {
 
     User user = userService.getUserRepo().save(input);
     // 忽略密码
@@ -46,7 +49,8 @@ public class UserController {
   @ApiOperation(notes = "根据用户信息进行登录验证", value = "用户登录")
   @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
   @ResponseBody
-  public ResponseEntity<Token> login(@Valid @RequestBody LoginModel loginModel) {
+  public ResponseEntity<Token> login(
+      @Valid @RequestBody LoginModel loginModel) {
 
 
     String loginName = loginModel.getLoginName();
@@ -57,10 +61,7 @@ public class UserController {
     if (NullCheckUtils.isNullOrEmpty(user)) {
       throw new AttrValidateException("用户名或密码出错");
     }
-
     Token token = userService.generateTokenByUserID(user.getId());
-
-
     return ResponseEntity.ok(token);
   }
 

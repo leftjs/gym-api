@@ -8,8 +8,6 @@ import com.donler.gym.repo.TokenRepo;
 import com.donler.gym.repo.UserRepo;
 import com.donler.gym.util.MD5Utils;
 import com.donler.gym.util.NullCheckUtils;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,8 @@ public class UserService {
   private Config config;
   @Autowired
   private TokenRepo tokenRepo;
+  @Autowired
+  private TokenServcie tokenServcie;
 
 
   public UserRepo getUserRepo() {
@@ -130,11 +130,13 @@ public class UserService {
       throw new AttrValidateException("用户信息出错");
     }
 
-    Token token = new Token();
-
+    Token token = tokenRepo.findTokenByUserId(user.getId());
+    if (NullCheckUtils.isNullOrEmpty(token)) {
+      token = new Token();
+    }
     Date now = new Date();
     String expiredTime = String.valueOf(now.getTime() + Long.parseLong(config.getTokenExpiredTime()));
-    token.setToken(encodeToken(String.valueOf(user.getId())));
+    token.setToken(tokenServcie.encodeToken((String.valueOf(user.getId()) + expiredTime)));
     token.setUserId(user.getId());
     token.setExpiredTime(expiredTime);
     Token newToken = tokenRepo.save(token);
@@ -148,10 +150,8 @@ public class UserService {
     return newToken;
   }
 
-  private String encodeToken(String str) {
-    String afterStr = Jwts.builder().setSubject(str).signWith(SignatureAlgorithm.HS512, config.getAppSecret()).compact();
-    return afterStr;
-  }
+
+
 
 
 }

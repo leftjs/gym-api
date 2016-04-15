@@ -1,6 +1,7 @@
 package com.donler.gym.docs;
 
 import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -45,7 +46,11 @@ public class SwaggerConfig {
 
 
   private Predicate<String> userPath() {
-    return PathSelectors.regex("/user/.*");
+    return Predicates.or(
+        PathSelectors.regex("^/(?!error).*$")
+//        PathSelectors.regex("/business*"),
+//        PathSelectors.regex("/bargain*")
+    );
   }
 
 }
