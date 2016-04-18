@@ -34,13 +34,13 @@ public class DateUtils {
 
 
 
-  public static void main(String[] args) {
-
-
-    String timestamp = dateToTimeStamp(new Date());
-    System.out.println(timestamp);
-
-    Date myDate = timeStampToDate(timestamp);
-    System.out.println(myDate.getTime());
-  }
+//  public static void main(String[] args) {
+//
+//
+//    String timestamp = dateToTimeStamp(new Date());
+//    System.out.println(timestamp);
+//
+//    Date myDate = timeStampToDate(timestamp);
+//    System.out.println(myDate.getTime());
+//  }
 }

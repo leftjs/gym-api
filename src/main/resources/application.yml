@@ -39,5 +39,5 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
