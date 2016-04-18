@@ -18,7 +18,7 @@ import java.util.Date;
  * Created by jason on 4/15/16.
  */
 @Service
-public class TokenServcie {
+public class TokenService {
 
 
   @Autowired

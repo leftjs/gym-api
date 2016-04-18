@@ -52,8 +52,17 @@ public class Bargain {
   @ApiModelProperty(example = "枫林路485号")
   private String address;
 
-  @ApiModelProperty(example = "")
-  private String pdfPath;
+  /**
+   * 客户端上传pdf后填入的path
+   */
+  @ApiModelProperty(example = "", notes = "客户端上传pdf后填入的path")
+  private String clientUploadPath;
+
+  /**
+   * 服务端上传pdf后填入的path
+   */
+  @ApiModelProperty(example = "", notes = "服务端上传pdf后填入的path")
+  private String serverUploadPath;
 
   private Long salerId;
 
@@ -119,12 +128,20 @@ public class Bargain {
     this.address = address;
   }
 
-  public String getPdfPath() {
-    return pdfPath;
+  public String getClientUploadPath() {
+    return clientUploadPath;
   }
 
-  public void setPdfPath(String pdfPath) {
-    this.pdfPath = pdfPath;
+  public void setClientUploadPath(String clientUploadPath) {
+    this.clientUploadPath = clientUploadPath;
+  }
+
+  public String getServerUploadPath() {
+    return serverUploadPath;
+  }
+
+  public void setServerUploadPath(String serverUploadPath) {
+    this.serverUploadPath = serverUploadPath;
   }
 
   public Long getSalerId() {

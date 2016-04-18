@@ -1,6 +1,7 @@
 package com.donler.gym;
 
 import com.donler.gym.model.Business;
+import com.donler.gym.model.OSSConfig;
 import com.donler.gym.repo.BusinessRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,8 @@ public class Application {
 
 
   @Bean
-  public CommandLineRunner init(BusinessRepo businessRepo) {
+  public CommandLineRunner init(BusinessRepo businessRepo, OSSConfig ossConfig) {
+
     return (evt) -> {
 //      User user = new User("jason", "jason", "jason");
 //      userRepo.save(user);
@@ -36,6 +38,8 @@ public class Application {
       businessRepo.save(business2);
       businessRepo.save(business3);
       businessRepo.save(business4);
+
+      System.out.println(ossConfig);
 
     };
   }

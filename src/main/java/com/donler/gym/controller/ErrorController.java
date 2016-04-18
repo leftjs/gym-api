@@ -1,9 +1,6 @@
 package com.donler.gym.controller;
 
-import com.donler.gym.expection.AttrValidateException;
-import com.donler.gym.expection.AuthValidateException;
-import com.donler.gym.expection.DataFormatException;
-import com.donler.gym.expection.ResourceNotFoundException;
+import com.donler.gym.expection.*;
 import com.donler.gym.model.RestErrorInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +67,14 @@ public class ErrorController {
   public RestErrorInfo handleAuthValidateException(Exception ex) {
     log.info("授权异常: " + ex.getClass());
     return new RestErrorInfo("授权异常", ex.getLocalizedMessage());
+  }
+
+  @ExceptionHandler(UploadFileException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public RestErrorInfo handleUploadFileException(Exception ex) {
+    log.info("上传文件异常: " + ex.getClass());
+    return new RestErrorInfo("上传文件异常", ex.getLocalizedMessage());
   }
 
 
