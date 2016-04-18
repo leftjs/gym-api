@@ -104,6 +104,7 @@ public class BargainController {
     return ResponseEntity.ok(bargain);
   }
 
+  @ApiOperation(value = "上传合同pdf", notes = "上传pdf到指定的合同中")
   @RequestMapping(value = "/upload/{id}",method = RequestMethod.POST, produces = {"application/json"}, consumes = {"multipart/form-data"})
   public ResponseEntity<Bargain> uploadPDFBargain(@PathVariable Long id, @RequestPart("file") MultipartFile file) {
     Bargain bargain = ossService.saveFileToOSS(id, file);
@@ -112,6 +113,8 @@ public class BargainController {
     }
     return ResponseEntity.ok(bargain);
   }
+
+
 
 
 }

@@ -39,7 +39,6 @@ public class Application {
       businessRepo.save(business3);
       businessRepo.save(business4);
 
-      System.out.println(ossConfig);
 
     };
   }
