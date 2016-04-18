@@ -1,5 +1,7 @@
 package com.donler.gym.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +24,12 @@ public class Business {
 
   @NotNull(message = "业务期限不能为空")
   @Min(1)
+  @ApiModelProperty(example = "3")
   private int monthCount;
 
 
   @NotNull(message = "业务价格不能为空")
+  @ApiModelProperty(example = "1000")
   private int price;
 
   public Long getId() {

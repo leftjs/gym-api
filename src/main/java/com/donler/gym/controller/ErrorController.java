@@ -1,6 +1,7 @@
 package com.donler.gym.controller;
 
 import com.donler.gym.expection.AttrValidateException;
+import com.donler.gym.expection.AuthValidateException;
 import com.donler.gym.expection.DataFormatException;
 import com.donler.gym.expection.ResourceNotFoundException;
 import com.donler.gym.model.RestErrorInfo;
@@ -61,6 +62,14 @@ public class ErrorController {
   public RestErrorInfo handleDefaultException(Exception ex) {
     log.info("未知错误: " + ex.getClass());
     return new RestErrorInfo("未知错误", ex.getLocalizedMessage());
+  }
+
+  @ExceptionHandler(AuthValidateException.class)
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ResponseBody
+  public RestErrorInfo handleAuthValidateException(Exception ex) {
+    log.info("授权异常: " + ex.getClass());
+    return new RestErrorInfo("授权异常", ex.getLocalizedMessage());
   }
 
 

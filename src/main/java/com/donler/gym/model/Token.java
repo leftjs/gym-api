@@ -2,10 +2,8 @@ package com.donler.gym.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by jason on 4/13/16.
@@ -19,10 +17,19 @@ public class Token {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  public Date getExpiredTime() {
+    return expiredTime;
+  }
+
+  public void setExpiredTime(Date expiredTime) {
+    this.expiredTime = expiredTime;
+  }
+
   /**
    * token的过期时间
    */
-  private String expiredTime;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date expiredTime;
   /**
    * 用户的id
    */
@@ -36,14 +43,6 @@ public class Token {
 
   public Long getId() {
     return id;
-  }
-
-  public String getExpiredTime() {
-    return expiredTime;
-  }
-
-  public void setExpiredTime(String expiredTime) {
-    this.expiredTime = expiredTime;
   }
 
   public Long getUserId() {
@@ -65,8 +64,8 @@ public class Token {
   public Token() {
   }
 
-  public Token(String expiredTime, Long userId, String token) {
-    setExpiredTime(expiredTime);
+  public Token(Date expiredTime, Long userId, String token) {
+    this.expiredTime = expiredTime;
     this.userId = userId;
     this.token = token;
   }

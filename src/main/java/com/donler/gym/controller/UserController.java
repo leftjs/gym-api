@@ -37,16 +37,22 @@ public class UserController {
   @RequestMapping(value = "/register", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
   @ResponseBody
   public ResponseEntity<User> register(
-
       @Valid @RequestBody User input) {
 
+    /**
+     * 设置tokenId的忽略
+     */
+    input.setTokenId(null);
+
     User user = userService.getUserRepo().save(input);
-    // 忽略密码
+    /**
+     * 设置密码反馈的忽略
+     */
     user.setPassword(null);
     return ResponseEntity.ok(user);
   }
 
-  @ApiOperation(notes = "根据用户信息进行登录验证", value = "用户登录")
+  @ApiOperation(notes = "根据用户信息进行登录验证,可以直接传入用户名/邮箱/手机号码中的任意一个作为登录名", value = "用户登录")
   @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {"application/json"}, produces = {"application/json"})
   @ResponseBody
   public ResponseEntity<Token> login(

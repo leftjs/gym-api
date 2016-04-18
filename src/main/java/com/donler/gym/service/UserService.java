@@ -135,8 +135,8 @@ public class UserService {
       token = new Token();
     }
     Date now = new Date();
-    String expiredTime = String.valueOf(now.getTime() + Long.parseLong(config.getTokenExpiredTime()));
-    token.setToken(tokenServcie.encodeToken((String.valueOf(user.getId()) + expiredTime)));
+    Date expiredTime = new Date(now.getTime() + Long.parseLong(config.getTokenExpiredTime()));
+    token.setToken(tokenServcie.encodeToken((String.valueOf(user.getId()) + now.getTime()))); // token加密采用 用户id和当前时间以确保token的唯一性
     token.setUserId(user.getId());
     token.setExpiredTime(expiredTime);
     Token newToken = tokenRepo.save(token);

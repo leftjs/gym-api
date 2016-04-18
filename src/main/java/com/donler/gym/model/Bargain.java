@@ -1,7 +1,10 @@
 package com.donler.gym.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 /**
@@ -16,17 +19,24 @@ public class Bargain {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  @ApiModelProperty(example = "小张")
   @NotNull(message = "姓名不能为空")
   private String name;
 
 
-  private Boolean isMan = false;
+  @ApiModelProperty(example = "男", allowableValues = "男,女")
+  @NotNull(message = "性别不能为空")
+  @Pattern(regexp = "^[男,女]$",message = "性别必须是[男,女]")
+  private String sex;
 
+  @ApiModelProperty(example = "XiaoZhang")
   private String spell; // 拼音
 
   @NotNull(message = "身份证号码不能为空")
+  @ApiModelProperty(example = "321000000000000000")
   private String idCard;
 
+  @ApiModelProperty(example = "18205253786")
   @NotNull(message = "电话号码不能为空")
   private String phoenNumber;
 
@@ -34,8 +44,19 @@ public class Bargain {
   @Temporal(value = TemporalType.DATE)
   private Date birthday = new Date();
 
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   @NotNull(message = "地址不能为空")
+  @ApiModelProperty(example = "枫林路485号")
   private String address;
+
+  @ApiModelProperty(example = "")
+  private String pdfPath;
+
+  private Long salerId;
+
 
   public Long getId() {
     return id;
@@ -50,12 +71,12 @@ public class Bargain {
     this.name = name;
   }
 
-  public Boolean getMan() {
-    return isMan;
+  public String getSex() {
+    return sex;
   }
 
-  public void setMan(Boolean man) {
-    isMan = man;
+  public void setSex(String sex) {
+    this.sex = sex;
   }
 
   public String getSpell() {
@@ -98,10 +119,25 @@ public class Bargain {
     this.address = address;
   }
 
+  public String getPdfPath() {
+    return pdfPath;
+  }
 
-  public Bargain(String name, Boolean isMan, String spell, String idCard, String phoenNumber, Date birthday, String address) {
+  public void setPdfPath(String pdfPath) {
+    this.pdfPath = pdfPath;
+  }
+
+  public Long getSalerId() {
+    return salerId;
+  }
+
+  public void setSalerId(Long salerId) {
+    this.salerId = salerId;
+  }
+
+  public Bargain(String name, String sex, String spell, String idCard, String phoenNumber, Date birthday, String address) {
     this.name = name;
-    this.isMan = isMan;
+    this.sex = sex;
     this.spell = spell;
     this.idCard = idCard;
     this.phoenNumber = phoenNumber;
