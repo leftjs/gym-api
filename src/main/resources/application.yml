@@ -34,6 +34,7 @@ spring:
     url: jdbc:mysql://localhost:3306/gym_dev?useSSL=false
     test-on-borrow: true
     validation-query: select 1
+    validation-query-timeout: 5000
     username: root
     password: root
 
@@ -43,8 +44,6 @@ spring:
     hibernate:
       ddl-auto: create
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-
-
 
 ---
 spring.profiles: production
