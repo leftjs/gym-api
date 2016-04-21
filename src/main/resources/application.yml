@@ -32,6 +32,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/gym_dev?autoReconnect=true&useSSL=false
+    test-on-borrow: true
+    validation-query: select 1
     username: root
     password: root
 
@@ -39,5 +41,14 @@ spring:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+
+
+---
+spring.profiles: production
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
