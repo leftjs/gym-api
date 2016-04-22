@@ -54,8 +54,8 @@ public class User {
   private String email;
 
   @NotNull(message = "请输入电话号码")
-  @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$",message = "手机号码不正确")
-//  @Pattern(regexp = "^(1)\\d{10}$", message = "手机号码不正确")
+//  @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$",message = "手机号码不正确")
+  @Pattern(regexp = "^(1)\\d{10}$", message = "手机号码不正确")
   @Column(unique = true)
   @ApiModelProperty(required = true,example = "18205253786")
   private String phoneNumber;
