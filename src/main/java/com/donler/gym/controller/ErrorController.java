@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ErrorController {
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   @ExceptionHandler(DataFormatException.class)
   public
   @ResponseBody
@@ -35,7 +35,7 @@ public class ErrorController {
     return new RestErrorInfo("数据库错误",ex.getLocalizedMessage());
   }
 
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   @ExceptionHandler(AttrValidateException.class)
   public
   @ResponseBody
@@ -44,7 +44,7 @@ public class ErrorController {
     return new RestErrorInfo("参数验证异常", ex.getLocalizedMessage());
   }
 
-  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ResponseStatus(HttpStatus.OK)
   @ExceptionHandler(ResourceNotFoundException.class)
   public
   @ResponseBody
@@ -54,7 +54,7 @@ public class ErrorController {
   }
 
   @ExceptionHandler(RuntimeException.class)
-  @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleDefaultException(Exception ex) {
     log.info("未知错误: " + ex.getClass());
@@ -62,7 +62,7 @@ public class ErrorController {
   }
 
   @ExceptionHandler(AuthValidateException.class)
-  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleAuthValidateException(Exception ex) {
     log.info("授权异常: " + ex.getClass());
@@ -70,7 +70,7 @@ public class ErrorController {
   }
 
   @ExceptionHandler(UploadFileException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleUploadFileException(Exception ex) {
     log.info("上传文件异常: " + ex.getClass());
@@ -79,7 +79,7 @@ public class ErrorController {
 
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
 
@@ -89,8 +89,18 @@ public class ErrorController {
   }
 
 
+ @ExceptionHandler(TokenExpiredException.class)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public RestErrorInfo handleTokenExpiredException(TokenExpiredException ex) {
+
+    log.info("token过期", ex.getLocalizedMessage());
+    return new RestErrorInfo("token过期", ex.getLocalizedMessage());
+  }
+
+
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
 

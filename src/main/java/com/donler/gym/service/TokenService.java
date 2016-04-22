@@ -1,6 +1,7 @@
 package com.donler.gym.service;
 
 import com.donler.gym.expection.AttrValidateException;
+import com.donler.gym.expection.TokenExpiredException;
 import com.donler.gym.model.Config;
 import com.donler.gym.model.Token;
 import com.donler.gym.model.User;
@@ -51,7 +52,7 @@ public class TokenService {
      * TODO: 待测试
      */
     if (token.getExpiredTime().before(new Date())) {
-      throw new AttrValidateException("token已过期,请重新登录");
+      throw new TokenExpiredException("token已过期,请重新登录");
     }
 
     User user = userRepo.findUserById(token.getUserId());
