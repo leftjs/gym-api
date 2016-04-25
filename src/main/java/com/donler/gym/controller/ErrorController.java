@@ -32,7 +32,7 @@ public class ErrorController {
   @ResponseBody
   RestErrorInfo handleDataStoreException(Exception ex) {
     log.info("数据库错误: " + ex.getMessage());
-    return new RestErrorInfo("数据库错误",ex.getLocalizedMessage());
+    return new RestErrorInfo("数据库错误",ex.getLocalizedMessage(),HttpStatus.SERVICE_UNAVAILABLE);
   }
 
   @ResponseStatus(HttpStatus.OK)
@@ -41,7 +41,7 @@ public class ErrorController {
   @ResponseBody
   RestErrorInfo handleAttrValidateException (Exception ex) {
     log.info("参数验证异常: " + ex.getMessage());
-    return new RestErrorInfo("参数验证异常", ex.getLocalizedMessage());
+    return new RestErrorInfo("参数验证异常", ex.getLocalizedMessage(),HttpStatus.BAD_REQUEST);
   }
 
   @ResponseStatus(HttpStatus.OK)
@@ -50,7 +50,7 @@ public class ErrorController {
   @ResponseBody
   RestErrorInfo handleResourceNotFoundException(Exception ex) {
     log.info("资源未找到: " + ex.getMessage());
-    return new RestErrorInfo("资源未找到", ex.getLocalizedMessage());
+    return new RestErrorInfo("资源未找到", ex.getLocalizedMessage(),HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(RuntimeException.class)
@@ -58,7 +58,7 @@ public class ErrorController {
   @ResponseBody
   public RestErrorInfo handleDefaultException(Exception ex) {
     log.info("未知错误: " + ex.getClass());
-    return new RestErrorInfo("未知错误", ex.getLocalizedMessage());
+    return new RestErrorInfo("未知错误", ex.getLocalizedMessage(),HttpStatus.NOT_IMPLEMENTED);
   }
 
   @ExceptionHandler(AuthValidateException.class)
@@ -66,7 +66,7 @@ public class ErrorController {
   @ResponseBody
   public RestErrorInfo handleAuthValidateException(Exception ex) {
     log.info("授权异常: " + ex.getClass());
-    return new RestErrorInfo("授权异常", ex.getLocalizedMessage());
+    return new RestErrorInfo("授权异常", ex.getLocalizedMessage(),HttpStatus.UNAUTHORIZED);
   }
 
   @ExceptionHandler(UploadFileException.class)
@@ -74,7 +74,7 @@ public class ErrorController {
   @ResponseBody
   public RestErrorInfo handleUploadFileException(Exception ex) {
     log.info("上传文件异常: " + ex.getClass());
-    return new RestErrorInfo("上传文件异常", ex.getLocalizedMessage());
+    return new RestErrorInfo("上传文件异常", ex.getLocalizedMessage(),HttpStatus.BAD_REQUEST);
   }
 
 
@@ -85,7 +85,7 @@ public class ErrorController {
 
     log.info("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
 //    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
-    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage());
+    return new RestErrorInfo("数据库操作异常", ex.getMostSpecificCause().getLocalizedMessage(),HttpStatus.BAD_REQUEST);
   }
 
 
@@ -95,7 +95,7 @@ public class ErrorController {
   public RestErrorInfo handleTokenExpiredException(TokenExpiredException ex) {
 
     log.info("token过期", ex.getLocalizedMessage());
-    return new RestErrorInfo("token过期", ex.getLocalizedMessage());
+    return new RestErrorInfo("token过期", ex.getLocalizedMessage(),HttpStatus.UNAUTHORIZED);
   }
 
 
@@ -111,7 +111,7 @@ public class ErrorController {
     }
     log.info("验证错误", stringBuilder.toString().substring(0, stringBuilder.toString().length() - 2));
 
-    return new RestErrorInfo("验证错误",stringBuilder.toString().substring(0, stringBuilder.toString().length() - 2) );
+    return new RestErrorInfo("验证错误",stringBuilder.toString().substring(0, stringBuilder.toString().length() - 2),HttpStatus.BAD_REQUEST);
   }
 
 }
