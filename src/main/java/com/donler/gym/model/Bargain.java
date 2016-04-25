@@ -38,7 +38,7 @@ public class Bargain {
 
   @ApiModelProperty(example = "18205253786")
   @NotNull(message = "电话号码不能为空")
-  private String phoenNumber;
+  private String phoneNumber;
 
 
   @Temporal(value = TemporalType.DATE)
@@ -109,11 +109,11 @@ public class Bargain {
   }
 
   public String getPhoenNumber() {
-    return phoenNumber;
+    return phoneNumber;
   }
 
   public void setPhoenNumber(String phoenNumber) {
-    this.phoenNumber = phoenNumber;
+    this.phoneNumber = phoenNumber;
   }
 
   public Date getBirthday() {
@@ -142,12 +142,12 @@ public class Bargain {
     this.salerId = salerId;
   }
 
-  public Bargain(String name, String sex, String spell, String idCard, String phoenNumber, Date birthday, String address) {
+  public Bargain(String name, String sex, String spell, String idCard, String phoneNumber, Date birthday, String address) {
     this.name = name;
     this.sex = sex;
     this.spell = spell;
     this.idCard = idCard;
-    this.phoenNumber = phoenNumber;
+    this.phoneNumber = phoneNumber;
     this.birthday = birthday;
     this.address = address;
   }
