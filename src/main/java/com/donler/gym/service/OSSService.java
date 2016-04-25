@@ -1,9 +1,10 @@
 package com.donler.gym.service;
 
-import com.aliyun.oss.OSSClient;
+import com.donler.gym.bean.MyOSSClient;
 import com.donler.gym.expection.AttrValidateException;
 import com.donler.gym.expection.UploadFileException;
 import com.donler.gym.model.Bargain;
+import com.donler.gym.model.Config;
 import com.donler.gym.repo.BargainRepo;
 import com.donler.gym.util.NullCheckUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +20,13 @@ import java.util.UUID;
 public class OSSService {
 
 
-  // TODO: 可抽到application.yaml中
-  private static String endpoint = "http://oss-cn-qingdao.aliyuncs.com";
-  private static String accessKeyId = "L33bxhzrpnRBLizQ";
-  private static String accessKeySecret = "6P1vpfW9nGU8FtcGBSYAubfuBLjlf6";
-  private static String bucketName = "donler-gym";
 
-
-
-  // TODO: 可重构为依赖注入型
-  private OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
   @Autowired
   private BargainRepo bargainRepo;
+  @Autowired
+  private MyOSSClient ossClient;
+  @Autowired
+  private Config config;
 
 
   /**
@@ -49,15 +45,16 @@ public class OSSService {
     String key = UUID.randomUUID().toString() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."), file.getOriginalFilename().length());
 
     try {
-      ossClient.putObject(bucketName, key, file.getInputStream());
+
+      ossClient.getOssClient().putObject(config.getBucketName(), key, file.getInputStream());
 
     } catch (Exception e) {
       throw new UploadFileException(file.getOriginalFilename() + " 文件上传错误");
 //      e.printStackTrace();
     }
 
-    String[] baseStr = endpoint.split("//");
-    String filePath = baseStr[0] + "//" + bucketName + "." + baseStr[1] + "/" + key;
+    String[] baseStr = config.getEndpoint().split("//");
+    String filePath = baseStr[0] + "//" + config.getBucketName() + "." + baseStr[1] + "/" + key;
 
     bargain.setPdfPath(filePath);
     return bargainRepo.save(bargain);

@@ -3,7 +3,11 @@ config:
   # token过期时间为30天
   token_expired_time: "2592000000"
 
-
+  endpoint: "http://oss-cn-qingdao.aliyuncs.com"
+  access_key_id: "L33bxhzrpnRBLizQ"
+  access_key_secret: "6P1vpfW9nGU8FtcGBSYAubfuBLjlf6"
+  bucket_name: "donler-gym"
+  key: "mykey"
 
 # OSS的配置
 
