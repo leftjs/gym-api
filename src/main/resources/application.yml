@@ -35,7 +35,7 @@ config:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/gym_dev?useSSL=false
+    url: jdbc:mysql://localhost:3306/gym_dev?useSSL=false&useUnicode=true&characterEncoding=utf8
     test-on-borrow: true
     validation-query: select 1
     username: root
