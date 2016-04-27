@@ -32,6 +32,8 @@ config:
 #
 # in-mysql
 
+
+
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -48,6 +50,8 @@ spring:
       ddl-auto: create
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
+multipart:
+  max-file-size: -1
 ---
 spring.profiles: production
 spring:

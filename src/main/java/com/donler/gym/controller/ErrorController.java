@@ -89,13 +89,21 @@ public class ErrorController {
   }
 
 
- @ExceptionHandler(TokenExpiredException.class)
+  @ExceptionHandler(TokenExpiredException.class)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public RestErrorInfo handleTokenExpiredException(TokenExpiredException ex) {
 
     log.info("token过期", ex.getLocalizedMessage());
     return new RestErrorInfo("token过期", ex.getLocalizedMessage(),HttpStatus.UNAUTHORIZED);
+  }
+  @ExceptionHandler(DataConflictException.class)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public RestErrorInfo handleDataConflictException(DataConflictException ex) {
+
+    log.info("数据冲突", ex.getLocalizedMessage());
+    return new RestErrorInfo("数据冲突", ex.getLocalizedMessage(),HttpStatus.BAD_REQUEST);
   }
 
 

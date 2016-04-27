@@ -2,10 +2,13 @@ package com.donler.gym.controller;
 
 import com.donler.gym.expection.AttrValidateException;
 import com.donler.gym.expection.AuthValidateException;
+import com.donler.gym.expection.DataConflictException;
 import com.donler.gym.expection.UploadFileException;
 import com.donler.gym.model.Bargain;
+import com.donler.gym.model.BargainCondition;
 import com.donler.gym.model.User;
 import com.donler.gym.model.dto.DeleteStatusModel;
+import com.donler.gym.repo.BargainConditionRepo;
 import com.donler.gym.repo.BargainRepo;
 import com.donler.gym.service.OSSService;
 import com.donler.gym.service.TokenService;
@@ -35,6 +38,9 @@ public class BargainController {
   private TokenService tokenService;
   @Autowired
   private OSSService ossService;
+  @Autowired
+  private BargainConditionRepo bargainConditionRepo;
+
 
 
   @ApiOperation(value = "提交合同",notes = "根据token判断销售员的身份,提交一份合同信息")
@@ -114,7 +120,27 @@ public class BargainController {
     return ResponseEntity.ok(bargain);
   }
 
+  @ApiOperation(value = "上传合同条款", notes = "上传合同条款,字符串即可")
+  @RequestMapping(value = "/condition", method = RequestMethod.POST, produces = {"application/json"}, consumes = {"application/json"})
+  public ResponseEntity<BargainCondition> postBargainCondition(@Valid @RequestBody BargainCondition bargainCondition) {
+    List<BargainCondition> bargainConditionList = bargainConditionRepo.findAll();
+    if (bargainConditionList.size() == 0) {
+      return ResponseEntity.ok(bargainConditionRepo.save(bargainCondition));
+    } else if (bargainConditionList.size() == 1) {
+      bargainCondition.setId(bargainConditionList.get(0).getId());
+      return ResponseEntity.ok(bargainConditionRepo.save(bargainCondition));
+    } else {
+      throw new DataConflictException("合同重复,请检查数据库");
+    }
+  }
 
-
-
+  @ApiOperation(value = "获取合同条款", notes = "获取合同条款")
+  @RequestMapping(value = "/condition", method = RequestMethod.GET, produces = {"application/json"})
+  public ResponseEntity<BargainCondition> getBargainCondition() {
+    List<BargainCondition> bargainConditionList = bargainConditionRepo.findAll();
+    if (bargainConditionList.size() == 0) {
+      return ResponseEntity.ok(new BargainCondition());
+    }
+    return ResponseEntity.ok(bargainConditionList.get(0));
+  }
 }

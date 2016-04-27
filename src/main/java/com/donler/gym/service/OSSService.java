@@ -49,8 +49,9 @@ public class OSSService {
       ossClient.getOssClient().putObject(config.getBucketName(), key, file.getInputStream());
 
     } catch (Exception e) {
+      e.printStackTrace();
       throw new UploadFileException(file.getOriginalFilename() + " 文件上传错误");
-//      e.printStackTrace();
+
     }
 
     String[] baseStr = config.getEndpoint().split("//");
