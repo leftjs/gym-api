@@ -7,6 +7,7 @@ import com.donler.gym.expection.UploadFileException;
 import com.donler.gym.model.Bargain;
 import com.donler.gym.model.BargainCondition;
 import com.donler.gym.model.User;
+import com.donler.gym.model.dto.BargainConditionPostModel;
 import com.donler.gym.model.dto.DeleteStatusModel;
 import com.donler.gym.repo.BargainConditionRepo;
 import com.donler.gym.repo.BargainRepo;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -122,13 +124,20 @@ public class BargainController {
 
   @ApiOperation(value = "上传合同条款", notes = "上传合同条款,字符串即可")
   @RequestMapping(value = "/condition", method = RequestMethod.POST, produces = {"application/json"}, consumes = {"application/json"})
-  public ResponseEntity<BargainCondition> postBargainCondition(@Valid @RequestBody BargainCondition bargainCondition) {
+  public ResponseEntity<BargainCondition> postBargainCondition(@Valid @RequestBody BargainConditionPostModel model) {
+
     List<BargainCondition> bargainConditionList = bargainConditionRepo.findAll();
     if (bargainConditionList.size() == 0) {
-      return ResponseEntity.ok(bargainConditionRepo.save(bargainCondition));
+      BargainCondition bargainCondition = new BargainCondition(model.getBlackCondition(), model.getTemplateCondition(), new Date());
+      bargainConditionRepo.save(bargainCondition);
+      return ResponseEntity.ok(bargainConditionRepo.findAll().get(0));
     } else if (bargainConditionList.size() == 1) {
-      bargainCondition.setId(bargainConditionList.get(0).getId());
-      return ResponseEntity.ok(bargainConditionRepo.save(bargainCondition));
+      BargainCondition bargainCondition = bargainConditionList.get(0);
+      bargainCondition.setTemplateCondition(model.getTemplateCondition());
+      bargainCondition.setBlackCondition(model.getBlackCondition());
+      bargainCondition.setUpdated_time(new Date());
+      bargainConditionRepo.save(bargainCondition);
+      return ResponseEntity.ok(bargainConditionRepo.findAll().get(0));
     } else {
       throw new DataConflictException("合同重复,请检查数据库");
     }
