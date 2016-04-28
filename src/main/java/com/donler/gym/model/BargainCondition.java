@@ -30,22 +30,9 @@ public class BargainCondition {
 
   @Temporal(TemporalType.TIMESTAMP)
   @ApiModelProperty(notes = "修改时间")
-  private Date updatedTime;
+  private Date currentVersionTime;
 
   public BargainCondition() {
-  }
-
-  public BargainCondition(String blackCondition, String templateCondition) {
-
-    this.blackCondition = blackCondition;
-    this.templateCondition = templateCondition;
-  }
-
-  public BargainCondition(String blackCondition, String templateCondition, Date updatedTime) {
-
-    this.blackCondition = blackCondition;
-    this.templateCondition = templateCondition;
-    this.updatedTime = updatedTime;
   }
 
   public Long getId() {
@@ -73,11 +60,18 @@ public class BargainCondition {
     this.templateCondition = templateCondition;
   }
 
-  public Date getUpdatedTime() {
-    return updatedTime;
+  public Date getCurrentVersionTime() {
+    return currentVersionTime;
   }
 
-  public void setUpdatedTime(Date updated_time) {
-    this.updatedTime = updatedTime;
+  public void setCurrentVersionTime(Date currentVersionTime) {
+    this.currentVersionTime = currentVersionTime;
+  }
+
+  public BargainCondition(String blackCondition, String templateCondition, Date currentVersionTime) {
+
+    this.blackCondition = blackCondition;
+    this.templateCondition = templateCondition;
+    this.currentVersionTime = currentVersionTime;
   }
 }

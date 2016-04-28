@@ -136,7 +136,7 @@ public class BargainController {
       BargainCondition bargainCondition = bargainConditionList.get(0);
       bargainCondition.setTemplateCondition(model.getTemplateCondition());
       bargainCondition.setBlackCondition(model.getBlackCondition());
-      bargainCondition.setUpdatedTime(new Date());
+      bargainCondition.setCurrentVersionTime(new Date());
       bargainConditionRepo.save(bargainCondition);
       return ResponseEntity.ok(bargainConditionRepo.findAll().get(0));
     } else {
@@ -156,11 +156,11 @@ public class BargainController {
       queryTime = queryTime.substring(0, 10);
     }
     BargainCondition bargainCondition = bargainConditionList.get(0);
-    String bargainTime = String.valueOf(bargainCondition.getUpdatedTime().getTime()).substring(0, 10);
+    String bargainTime = String.valueOf(bargainCondition.getCurrentVersionTime().getTime()).substring(0, 10);
     if (queryTime.equals(bargainTime)) {
-      return ResponseEntity.ok(new BargainConditionResultModel(null, null, bargainCondition.getUpdatedTime(), false));
+      return ResponseEntity.ok(new BargainConditionResultModel(null, null, bargainCondition.getCurrentVersionTime(), false));
     }else {
-      return ResponseEntity.ok(new BargainConditionResultModel(bargainCondition.getBlackCondition(),bargainCondition.getTemplateCondition(),bargainCondition.getUpdatedTime(),true));
+      return ResponseEntity.ok(new BargainConditionResultModel(bargainCondition.getBlackCondition(),bargainCondition.getTemplateCondition(),bargainCondition.getCurrentVersionTime(),true));
     }
 
   }

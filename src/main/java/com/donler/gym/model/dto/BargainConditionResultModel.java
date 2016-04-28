@@ -23,12 +23,16 @@ public class BargainConditionResultModel {
 
 
   @ApiModelProperty(notes = "更新时间")
-  private Date updatedTime;
+  private Date currentVersionTime;
 
   @ApiModelProperty(notes = "新条款")
   private Boolean hasUpdated;
 
+  public BargainConditionResultModel() {
+  }
+
   public String getBlackCondition() {
+
     return blackCondition;
   }
 
@@ -44,12 +48,12 @@ public class BargainConditionResultModel {
     this.templateCondition = templateCondition;
   }
 
-  public Date getUpdatedTime() {
-    return updatedTime;
+  public Date getCurrentVersionTime() {
+    return currentVersionTime;
   }
 
-  public void setUpdatedTime(Date updatedTime) {
-    this.updatedTime = updatedTime;
+  public void setCurrentVersionTime(Date currentVersionTime) {
+    this.currentVersionTime = currentVersionTime;
   }
 
   public Boolean getHasUpdated() {
@@ -60,15 +64,11 @@ public class BargainConditionResultModel {
     this.hasUpdated = hasUpdated;
   }
 
-  public BargainConditionResultModel() {
-
-  }
-
-  public BargainConditionResultModel(String blackCondition, String templateCondition, Date updatedTime, Boolean hasUpdated) {
+  public BargainConditionResultModel(String blackCondition, String templateCondition, Date currentVersionTime, Boolean hasUpdated) {
 
     this.blackCondition = blackCondition;
     this.templateCondition = templateCondition;
-    this.updatedTime = updatedTime;
+    this.currentVersionTime = currentVersionTime;
     this.hasUpdated = hasUpdated;
   }
 }
