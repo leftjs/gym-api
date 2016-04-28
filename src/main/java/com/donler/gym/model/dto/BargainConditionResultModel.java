@@ -26,21 +26,9 @@ public class BargainConditionResultModel {
   private Date updatedTime;
 
   @ApiModelProperty(notes = "新条款")
-  private Boolean isNew;
-
-  public BargainConditionResultModel() {
-  }
-
-  public BargainConditionResultModel(String blackCondition, String templateCondition, Date updatedTime, Boolean isNew) {
-
-    this.blackCondition = blackCondition;
-    this.templateCondition = templateCondition;
-    this.updatedTime = updatedTime;
-    this.isNew = isNew;
-  }
+  private Boolean hasUpdated;
 
   public String getBlackCondition() {
-
     return blackCondition;
   }
 
@@ -64,11 +52,23 @@ public class BargainConditionResultModel {
     this.updatedTime = updatedTime;
   }
 
-  public Boolean getNew() {
-    return isNew;
+  public Boolean getHasUpdated() {
+    return hasUpdated;
   }
 
-  public void setNew(Boolean aNew) {
-    isNew = aNew;
+  public void setHasUpdated(Boolean hasUpdated) {
+    this.hasUpdated = hasUpdated;
+  }
+
+  public BargainConditionResultModel() {
+
+  }
+
+  public BargainConditionResultModel(String blackCondition, String templateCondition, Date updatedTime, Boolean hasUpdated) {
+
+    this.blackCondition = blackCondition;
+    this.templateCondition = templateCondition;
+    this.updatedTime = updatedTime;
+    this.hasUpdated = hasUpdated;
   }
 }
