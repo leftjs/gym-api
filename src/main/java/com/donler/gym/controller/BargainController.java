@@ -8,6 +8,7 @@ import com.donler.gym.model.Bargain;
 import com.donler.gym.model.BargainCondition;
 import com.donler.gym.model.User;
 import com.donler.gym.model.dto.BargainConditionPostModel;
+import com.donler.gym.model.dto.BargainConditionResultModel;
 import com.donler.gym.model.dto.DeleteStatusModel;
 import com.donler.gym.repo.BargainConditionRepo;
 import com.donler.gym.repo.BargainRepo;
@@ -135,7 +136,7 @@ public class BargainController {
       BargainCondition bargainCondition = bargainConditionList.get(0);
       bargainCondition.setTemplateCondition(model.getTemplateCondition());
       bargainCondition.setBlackCondition(model.getBlackCondition());
-      bargainCondition.setUpdated_time(new Date());
+      bargainCondition.setUpdatedTime(new Date());
       bargainConditionRepo.save(bargainCondition);
       return ResponseEntity.ok(bargainConditionRepo.findAll().get(0));
     } else {
@@ -144,12 +145,23 @@ public class BargainController {
   }
 
   @ApiOperation(value = "获取合同条款", notes = "获取合同条款")
-  @RequestMapping(value = "/condition", method = RequestMethod.GET, produces = {"application/json"})
-  public ResponseEntity<BargainCondition> getBargainCondition() {
+  @RequestMapping(value = "/condition/{updatedTime}", method = RequestMethod.GET, produces = {"application/json"})
+  public ResponseEntity<BargainConditionResultModel> getBargainCondition(@PathVariable("updatedTime") String queryTime) {
+
     List<BargainCondition> bargainConditionList = bargainConditionRepo.findAll();
     if (bargainConditionList.size() == 0) {
-      return ResponseEntity.ok(new BargainCondition());
+      return ResponseEntity.ok(new BargainConditionResultModel(null,null,null,false));
     }
-    return ResponseEntity.ok(bargainConditionList.get(0));
+    if (queryTime.length() > 10) {
+      queryTime = queryTime.substring(0, 10);
+    }
+    BargainCondition bargainCondition = bargainConditionList.get(0);
+    String bargainTime = String.valueOf(bargainCondition.getUpdatedTime().getTime()).substring(0, 10);
+    if (queryTime.equals(bargainTime)) {
+      return ResponseEntity.ok(new BargainConditionResultModel(null, null, bargainCondition.getUpdatedTime(), false));
+    }else {
+      return ResponseEntity.ok(new BargainConditionResultModel(bargainCondition.getBlackCondition(),bargainCondition.getTemplateCondition(),bargainCondition.getUpdatedTime(),true));
+    }
+
   }
 }
