@@ -145,8 +145,8 @@ public class BargainController {
   }
 
   @ApiOperation(value = "获取合同条款", notes = "获取合同条款")
-  @RequestMapping(value = "/condition/{updatedTime}", method = RequestMethod.GET, produces = {"application/json"})
-  public ResponseEntity<BargainConditionResultModel> getBargainCondition(@PathVariable("updatedTime") String queryTime) {
+  @RequestMapping(value = "/condition", method = RequestMethod.GET, produces = {"application/json"})
+  public ResponseEntity<BargainConditionResultModel> getBargainCondition(@RequestParam("updatedTime") String queryTime) {
 
     List<BargainCondition> bargainConditionList = bargainConditionRepo.findAll();
     if (bargainConditionList.size() == 0) {
