@@ -1,6 +1,7 @@
 package com.donler.gym.service;
 
 import com.donler.gym.expection.AttrValidateException;
+import com.donler.gym.expection.AuthValidateException;
 import com.donler.gym.expection.TokenExpiredException;
 import com.donler.gym.model.Config;
 import com.donler.gym.model.Token;
@@ -44,7 +45,7 @@ public class TokenService {
   public User getUserFromCheckingToken(String tokenStr) {
     Token token = tokenRepo.findTokenByToken(tokenStr);
     if (NullCheckUtils.isNullOrEmpty(token)) {
-      throw new AttrValidateException("token检验出错");
+      throw new AuthValidateException("token不能为空");
     }
 
 
