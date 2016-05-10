@@ -123,6 +123,16 @@ public class BargainController {
     return ResponseEntity.ok(bargain);
   }
 
+  @ApiOperation(value = "上传合同pdf", notes = "上传pdf到指定的合同中")
+  @RequestMapping(value = "/upload/avatar",method = RequestMethod.POST, produces = {"application/json"}, consumes = {"multipart/form-data"})
+  public ResponseEntity<Bargain> uploadAvatar( @RequestPart("file") MultipartFile file, @RequestBody Bargain bargain) {
+
+    System.out.println(file);
+    System.out.println(bargain);
+    return ResponseEntity.ok(new Bargain());
+  }
+
+
   @ApiOperation(value = "上传合同条款", notes = "上传合同条款,字符串即可")
   @RequestMapping(value = "/condition", method = RequestMethod.POST, produces = {"application/json"}, consumes = {"application/json"})
   public ResponseEntity<BargainCondition> postBargainCondition(@Valid @RequestBody BargainConditionPostModel model) {

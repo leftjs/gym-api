@@ -1,6 +1,7 @@
 package com.donler.gym.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -24,6 +25,32 @@ public class Bargain {
   @NotNull(message = "姓名不能为空")
   private String name;
 
+  @ApiModelProperty(example = "lefttjs@gmail.com", required = true)
+  @NotNull(message = "邮箱不能为空")
+  @Email
+  private String email;
+
+  @ApiModelProperty(required = true)
+  @NotNull
+  @Lob
+  private String avatarData;
+
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getAvatarData() {
+    return avatarData;
+  }
+
+  public void setAvatarData(String avatarData) {
+    this.avatarData = avatarData;
+  }
 
   @ApiModelProperty(example = "男", allowableValues = "男,女",required = true)
   @NotNull(message = "性别不能为空")
@@ -182,8 +209,10 @@ public class Bargain {
     this.price = price;
   }
 
-  public Bargain(String name, String sex, String spell, String idCard, String phoneNumber, Date birthday, String address, int monthCount, int price, Date startDate, String pdfPath, Long salerId) {
+  public Bargain(String name, String email, String avatarData, String sex, String spell, String idCard, String phoneNumber, Date birthday, String address, int monthCount, int price, Date startDate, String pdfPath, Long salerId) {
     this.name = name;
+    this.email = email;
+    this.avatarData = avatarData;
     this.sex = sex;
     this.spell = spell;
     this.idCard = idCard;
